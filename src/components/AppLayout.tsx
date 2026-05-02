@@ -6,13 +6,14 @@ import { useParts } from "@/hooks/use-parts";
 import { partStatus } from "@/lib/parts";
 import { cn } from "@/lib/utils";
 
-const NAV = [
+type NavItem = { to: "/" | "/inventory" | "/alerts" | "/reports" | "/settings"; label: string; icon: typeof LayoutDashboard; exact?: boolean; alert?: boolean };
+const NAV: NavItem[] = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/inventory", label: "Inventory", icon: Package },
   { to: "/alerts", label: "Low Stock Alerts", icon: AlertTriangle, alert: true },
   { to: "/reports", label: "Reports", icon: BarChart3 },
   { to: "/settings", label: "Settings", icon: Settings },
-] as const;
+];
 
 export function AppLayout() {
   const [open, setOpen] = useState(false);
