@@ -156,7 +156,12 @@ function AuthPage() {
           <p className="text-sm text-muted-foreground mt-6 text-center">
             {isSignup ? "Already have an account?" : "New to PartsPro?"}{" "}
             <button
-              onClick={() => setIsSignup((v) => !v)}
+              type="button"
+              onClick={() => {
+                const next = !isSignup;
+                setIsSignup(next);
+                navigate({ to: "/auth", search: { mode: next ? "signup" : "signin" } });
+              }}
               className="text-primary font-semibold hover:underline"
             >
               {isSignup ? "Sign in" : "Sign up"}
