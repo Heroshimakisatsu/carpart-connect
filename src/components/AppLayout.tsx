@@ -6,9 +6,9 @@ import { useParts } from "@/hooks/use-parts";
 import { partStatus } from "@/lib/parts";
 import { cn } from "@/lib/utils";
 
-type NavItem = { to: "/" | "/inventory" | "/alerts" | "/reports" | "/settings"; label: string; icon: typeof LayoutDashboard; exact?: boolean; alert?: boolean };
+type NavItem = { to: "/dashboard" | "/inventory" | "/alerts" | "/reports" | "/settings"; label: string; icon: typeof LayoutDashboard; exact?: boolean; alert?: boolean };
 const NAV: NavItem[] = [
-  { to: "/", label: "Dashboard", icon: LayoutDashboard, exact: true },
+  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/inventory", label: "Inventory", icon: Package },
   { to: "/alerts", label: "Low Stock Alerts", icon: AlertTriangle, alert: true },
   { to: "/reports", label: "Reports", icon: BarChart3 },
@@ -20,6 +20,17 @@ export function AppLayout() {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const { parts } = useParts();
   const alertCount = parts.filter((p) => partStatus(p) !== "in").length;
+
+  // Pages without app chrome (sidebar): landing + auth
+  const isPublic = path === "/" || path.startsWith("/auth");
+  if (isPublic) {
+    return (
+      <>
+        <Outlet />
+        <Toaster position="top-right" richColors />
+      </>
+    );
+  }
 
   return (
     <div className="min-h-screen flex blueprint-bg text-foreground">
