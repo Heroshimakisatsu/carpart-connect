@@ -21,6 +21,17 @@ export function AppLayout() {
   const { parts } = useParts();
   const alertCount = parts.filter((p) => partStatus(p) !== "in").length;
 
+  // Pages without app chrome (sidebar): landing + auth
+  const isPublic = path === "/" || path.startsWith("/auth");
+  if (isPublic) {
+    return (
+      <>
+        <Outlet />
+        <Toaster position="top-right" richColors />
+      </>
+    );
+  }
+
   return (
     <div className="min-h-screen flex blueprint-bg text-foreground">
       {/* Mobile top bar */}
