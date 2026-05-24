@@ -2,7 +2,6 @@ import { Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-rou
 import appCss from "../styles.css?url";
 import { AppLayout } from "@/components/AppLayout";
 import { ThemeProvider } from "@/contexts/theme-context";
-
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -17,7 +16,6 @@ function NotFoundComponent() {
     </div>
   );
 }
-
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -56,7 +54,6 @@ export const Route = createRootRoute({
   component: AppLayout,
   notFoundComponent: NotFoundComponent,
 });
-
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
